@@ -34,6 +34,29 @@ io.on('connection', function (socket) {
         // send the answer to the question to the client
         socket.emit('answer', { answer: 'Demande à Chuck Norris' });
     });
+	var battle = battle();
+	battle.getBonhommes();
 });
+
+function battle(){
+	this.bonhomme1;
+	this.bonhomme2;
+	this.turn = 1;
+	
+	this.getBonhommes = function(){
+		this.bonhomme1 = createBonhomme("panda");
+		this.bonhomme2 = createBonhomme("Mage");
+		console.log("in getBonhommes");
+	}
+}
+
+function bonhomme(nom){
+	return nom;
+}
+
+function createBonhomme(nom){
+	return nom;
+}
+
 
 

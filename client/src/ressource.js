@@ -20,7 +20,32 @@ var RessourceLoader = function(){
             image = new Image();
             image.onload = function() {
                 Ressource.charaset.PANDA = image;
-                callback();
+                image = new Image();
+                image.onload = function() {
+                    Ressource.charaset.mage = image;
+                    image = new Image();
+                    image.onload = function(){
+                        Ressource.charaset.healer = image;
+                        image = new Image();
+                        image.onload = function() {
+                            Ressource.charaset.figher = image;
+                            image = new Image();
+                            image.onload = function(){
+                                Ressource.charaset.druid = image;
+                                image = new Image();
+                                image.onload = function() {
+                                    Ressource.charaset.assassin = image;
+                                    callback();
+                                };
+                                image.src = 'rsx/characterset/assassin.png';
+                            };
+                            image.src = 'rsx/characterset/druid.png';
+                        };
+                        image.src = 'rsx/characterset/fighter.png';
+                    };
+                    image.src = 'rsx/characterset/healer.png';
+                };
+                image.src = 'rsx/characterset/mage.png';
             };
             image.src = 'rsx/characterset/PANDA.png';
         };

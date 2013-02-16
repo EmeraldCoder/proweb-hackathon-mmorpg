@@ -144,3 +144,58 @@ function Panda() {
 }
 Panda.prototype = new Character();
 Panda.prototype.constructor = Panda;
+
+function Mage() {
+    this.width = 54;
+    this.height = 81;
+    
+    this.charaset = 'mage';
+    
+    Character.call(this);
+}
+Mage.prototype = new Character();
+Mage.prototype.constructor = Mage;
+
+function Healer() {
+    this.width = 54;
+    this.height = 81;
+    
+    this.charaset = 'healer';
+    
+    Character.call(this);
+}
+Healer.prototype = new Character();
+Healer.prototype.constructor = Healer;
+
+function Fighter() {
+    this.width = 54;
+    this.height = 81;
+    
+    this.charaset = 'fighter';
+    
+    Character.call(this);
+}
+Fighter.prototype = new Character();
+Fighter.prototype.constructor = Fighter;
+
+function Druid() {
+    this.width = 54;
+    this.height = 81;
+    
+    this.charaset = 'druid';
+    
+    Character.call(this);
+}
+Druid.prototype = new Character();
+Druid.prototype.constructor = Druid;
+
+function Assassin() {
+    this.width = 54;
+    this.height = 81;
+    
+    this.charaset = 'assassin';
+    
+    Character.call(this);
+}
+Assassin.prototype = new Character();
+Assassin.prototype.constructor = Assassin;

@@ -42,16 +42,16 @@ function game() {
 function battle() {
     var battle = new ArenaBattle();
     
-    battle.team1.push(new Panda());
+    battle.team1.push(new Mage());
     battle.team2.push(new SailorMoon());
     
     battle.render();
     
-    /*setTimeout(function(){
+    setTimeout(function(){
         battle.attack(battle.team1[0], function(){
             battle.attack(battle.team2[0]);
         });
-    }, 1000);*/
+    }, 1000);
     
     //battle.showMessage('test');
     

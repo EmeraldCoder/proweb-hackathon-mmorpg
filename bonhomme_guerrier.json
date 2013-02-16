@@ -1,0 +1,14 @@
+{
+    "life":50,
+    "power":15,
+    "defence":15,
+    "mana":20,
+    "agility":15,
+    "name":"Guerrier",
+    "xp":0,
+    "attack": [
+	   "Normal",
+       "Stun",
+       "Berserk"
+    ]
+}

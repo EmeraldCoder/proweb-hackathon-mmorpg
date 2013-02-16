@@ -1,0 +1,14 @@
+{
+    "life":25,
+    "power":20,
+    "defence":5,
+    "mana":50,
+    "agility":10,
+    "name":"Mage",
+    "xp":0,
+    "attack": [
+	   "Normal",
+       "Missile magique",
+       "Meteor"
+    ]
+}

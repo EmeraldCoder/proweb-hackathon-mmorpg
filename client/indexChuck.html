@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Le sage nodejs serveur</title>
+</head>
+<body>
+    <h1>Le sage nodejs serveur</h1>
+    <p>Demander une question à mon serveur node.js qui a réponse à tout</p>
+    <input type="text" id="txtQuestion" />
+    <input type="button" value="Soumettre votre question au sage" onclick="askTheSage()" />
+
+	<script src="/socket.io/socket.io.js"></script>
+    <script>
+        window.onload = function() {
+            window.socket = io.connect();
+            
+            window.socket.on('answer', function(data) {
+                alert(data.answer);
+            });
+        };
+        
+        function askTheSage() {
+            var question = document.getElementById('txtQuestion').value;
+            window.socket.emit('question', { question: question });
+        }
+    </script>
+</body>
+</html>

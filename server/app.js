@@ -1,3 +1,6 @@
+var app = require('http').createServer(httpHandler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
 
 /*
  * Start our server
@@ -10,10 +13,10 @@ console.log('Server started on 127.0.0.1:8080');
  * send our html5 client to the browser
  */
 function httpHandler (req, res) {
-    fs.readFile(__dirname + '/../client/index.html', function(err, data) {
+    fs.readFile(__dirname + '/../client/indexChuck.html', function(err, data) {
         if (err) {
             res.writeHead(500);
-            return res.end('Error loading index.html');
+            return res.end('Error loading indexChuck.html');
         }
         
         res.writeHead(200);

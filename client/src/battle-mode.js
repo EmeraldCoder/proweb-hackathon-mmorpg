@@ -41,7 +41,7 @@ function Battle() {
         stage.add(characterLayer);
     };
     
-    this.showUserChoice = function(message, callback) {
+    this.showUserChoice = function(callback) {
         var textLayer = new Kinetic.Layer();
         
         var rect = new Kinetic.Rect({
@@ -71,6 +71,7 @@ function Battle() {
         window.onkeyup = function(e) {
             if (e.keyCode == 13) {
                 textLayer.remove();
+                window.onkeyup = null;
                 if (callback != undefined) callback();
             }
         };

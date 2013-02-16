@@ -1,6 +1,6 @@
-CHARACTERS = {};
-
 var stage = null;
+
+var player = null;
 
 window.onload = function() {    
     // init canvas stage
@@ -31,32 +31,25 @@ window.onload = function() {
     }
 };*/
 
-function game() {
-    var layer = new Kinetic.Layer();        
-    CHARACTERS.sailorMoon = new SailorMoon();
-    layer.add(CHARACTERS.sailorMoon.sprite);    
-    stage.add(layer);
-    CHARACTERS.sailorMoon.sprite.start();
-}
-
 function battle() {
+    player = new SailorMoon();
+
     var battle = new ArenaBattle();
     
     battle.team1.push(new Gypsy());
-    battle.team2.push(new SailorMoon());
+    battle.team2.push(player);
     
     battle.render();
     
     setTimeout(function(){
         battle.attack(battle.team1[0], function(){
-            battle.attack(battle.team2[0]);
+            battle.showUserChoice(function(){
+                battle.attack(player);
+            });
         });
     }, 1000);
     
     //battle.showMessage('test');
     
-    battle.showUserChoice();
+    //battle.showUserChoice();
 }
-
-
-

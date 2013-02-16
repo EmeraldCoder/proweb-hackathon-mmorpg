@@ -17,7 +17,12 @@ var RessourceLoader = function(){
         var image = new Image();
         image.onload = function() {
             Ressource.charaset.sprite = image;
-            callback();
+            image = new Image();
+            image.onload = function() {
+                Ressource.charaset.PANDA = image;
+                callback();
+            };
+            image.src = 'rsx/characterset/PANDA.png';
         };
         image.src = 'rsx/characterset/sprite.png';
     }

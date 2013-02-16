@@ -19,6 +19,29 @@ function Battle() {
         
         bgLayer.add(bg);
         
+        
+        var test2 = new Kinetic.Rect({
+            x: 500,
+            y: 22,
+            width: 280,
+            height: 50,
+            fill: 'green',
+            stroke: 'silver',
+            strokeWidth: 4,
+            opacity: 0.8,
+            cornerRadius: 10
+        });
+        bgLayer.add(test2);
+        var test = new Kinetic.Text({
+            x: 510,
+            y: 25,
+            text: playerName + '\r\nPoint de vie : 50 / 50\r\nMana : 50 / 50',
+            fontSize: 14,
+            fontFamily: 'arial',
+            fill: 'white'
+        });
+        bgLayer.add(test);
+        
         stage.add(bgLayer);
         
         characterLayer = new Kinetic.Layer();

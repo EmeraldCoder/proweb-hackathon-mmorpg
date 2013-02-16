@@ -28,14 +28,19 @@ var RessourceLoader = function(){
                         Ressource.charaset.healer = image;
                         image = new Image();
                         image.onload = function() {
-                            Ressource.charaset.figher = image;
+                            Ressource.charaset.fighter = image;
                             image = new Image();
                             image.onload = function(){
                                 Ressource.charaset.druid = image;
                                 image = new Image();
                                 image.onload = function() {
                                     Ressource.charaset.assassin = image;
-                                    callback();
+                                    image = new Image();
+                                    image.onload = function(){
+                                        Ressource.charaset.gypsy = image;
+                                        callback();
+                                    };
+                                    image.src = 'rsx/characterset/gypsy.png';
                                 };
                                 image.src = 'rsx/characterset/assassin.png';
                             };

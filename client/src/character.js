@@ -199,3 +199,14 @@ function Assassin() {
 }
 Assassin.prototype = new Character();
 Assassin.prototype.constructor = Assassin;
+
+function Gypsy() {
+    this.width = 54;
+    this.height = 81;
+    
+    this.charaset = 'gypsy';
+    
+    Character.call(this);
+}
+Gypsy.prototype = new Character();
+Gypsy.prototype.constructor = Gypsy;

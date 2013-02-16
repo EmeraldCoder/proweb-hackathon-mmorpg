@@ -42,7 +42,7 @@ function game() {
 function battle() {
     var battle = new ArenaBattle();
     
-    battle.team1.push(new Mage());
+    battle.team1.push(new Gypsy());
     battle.team2.push(new SailorMoon());
     
     battle.render();

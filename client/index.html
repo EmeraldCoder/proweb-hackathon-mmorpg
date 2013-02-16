@@ -3,12 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+	<script src="/socket.io/socket.io.js"></script>	
     <script src="vendor/kinetic-v4.3.3.min.js"></script>
     <script src="src/client.js"></script>
     <script src="src/ressource.js"></script>
     <script src="src/character.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>	
 </head>
 <body>
-    <div id="container"></div>
+    <div id="container">
+	</div>
 </body>
 </html>
+
+<script>
+	$(function(){
+		window.socket = io.connect();
+		window.socket.emit('startBattle');
+		window.socket.on('initedBattle', function(data) {
+			alert(data.battle);
+			console.log(data.battle);
+        });
+	});
+
+</script>

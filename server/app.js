@@ -1,6 +1,10 @@
 var app = require('http').createServer(httpHandler),
     io = require('socket.io').listen(app),
-    fs = require('fs');
+	perso = require('./Personnage.js')
+    fs = require('fs'),
+	varrior = require('./bonhomme_guerrier.json');		
+	vm = require('vm');	
+	
 
 /*
  * Start our server
@@ -13,15 +17,15 @@ console.log('Server started on 127.0.0.1:8080');
  * send our html5 client to the browser
  */
 function httpHandler (req, res) {
-    fs.readFile(__dirname + '/../client/indexChuck.html', function(err, data) {
+    fs.readFile(__dirname + '/../client/index.html', function(err, data) {
         if (err) {
             res.writeHead(500);
-            return res.end('Error loading indexChuck.html');
+            return res.end('Error loading index.html');
         }
         
         res.writeHead(200);
         res.end(data);
-    });
+    });	
 }
 
 /*
@@ -34,29 +38,40 @@ io.on('connection', function (socket) {
         // send the answer to the question to the client
         socket.emit('answer', { answer: 'Demande à Chuck Norris' });
     });
-	var battle = battle();
-	battle.getBonhommes();
+
+    socket.on('startBattle', function (data) {
+        console.log('Battle started', data);
+		battle = launchBattle();
+        // send the answer to the question to the client
+        socket.emit('initedBattle', { battle: battle});
+    });	
+	
 });
 
-function battle(){
-	this.bonhomme1;
-	this.bonhomme2;
-	this.turn = 1;
+function launchBattle(){
+	battle = new Object()
+	battle.bonhomme1 = createBonhomme('sailor moon');
+	battle.bonhomme2 = createBonhomme('pandaman');
+	battle.turn = 1;
 	
-	this.getBonhommes = function(){
-		this.bonhomme1 = createBonhomme("panda");
-		this.bonhomme2 = createBonhomme("Mage");
-		console.log("in getBonhommes");
-	}
-}
-
-function bonhomme(nom){
-	return nom;
+	return battle;
 }
 
 function createBonhomme(nom){
-	return nom;
+	var includeInThisContext = function(path) {
+		var code = fs.readFileSync(path);
+		vm.runInThisContext(code, path);
+	}.bind(this);
+	includeInThisContext("Personnage.js");
+
+	//Ou http://stackoverflow.com/questions/5625569/include-external-js-file-in-node-js-app
+	
+	var warrior = init_warrior();
+	return warrior;
 }
 
-
-
+function bonhomme(nom){
+	bon = new Object()
+	bon.nom = nom;
+	return bon;
+}

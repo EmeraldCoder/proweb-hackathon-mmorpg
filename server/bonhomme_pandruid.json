@@ -1,0 +1,16 @@
+{
+    "life":60,
+    "power":10,
+    "defence":15,
+    "mana":30,
+    "agility":5,
+    "name":"Panda da",
+    "xp":0,
+	"sprite":"pandruid",
+    "attack": [
+	   "Normal",
+       "Snooze",
+       "Bamboo Munchies",
+       "Panda Revenge"	   
+    ]
+}

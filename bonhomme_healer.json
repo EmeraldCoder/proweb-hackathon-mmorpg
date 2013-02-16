@@ -1,0 +1,16 @@
+{
+    "life":35,
+    "power":5,
+    "defence":15,
+    "mana":50,
+    "agility":20,
+    "name":"Sailor Moon",
+	"sprite":"healer",	
+    "xp":0,
+    "attack": [
+	   "Normal",
+       "Heal",
+       "Shield",
+	   "Resurrection"
+    ]
+}

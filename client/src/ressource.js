@@ -1,12 +1,15 @@
 var Ressource = {
-    charaset: {}
+    charaset: {},
+    background: {}
 };
 
 var RessourceLoader = function(){
 
     var load = function(callback){
         loadCharasets(function() {
-            callback();
+            loadBackgrounds(function(){
+                callback();
+            });
         });
     }
     
@@ -17,6 +20,15 @@ var RessourceLoader = function(){
             callback();
         };
         image.src = 'rsx/characterset/sprite.png';
+    }
+    
+    var loadBackgrounds = function(callback) {
+        var image = new Image();
+        image.onload = function() {
+            Ressource.background.arena = image;
+            callback();
+        };
+        image.src = 'rsx/background/arena.jpg';
     }
 
     return {

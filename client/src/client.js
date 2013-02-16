@@ -37,3 +37,6 @@ function game() {
     stage.add(layer);
     CHARACTERS.sailorMoon.sprite.start();
 }
+
+
+

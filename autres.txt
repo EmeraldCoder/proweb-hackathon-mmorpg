@@ -1,0 +1,13 @@
+{
+    "life":0,
+    "power":0,
+    "defence":0,
+    "mana":0,
+    "agility":0,
+    "name":"Panda",
+    "xp":0,
+    "attack": [
+       "coup de pied",
+       "coup de poing"
+    ]
+}

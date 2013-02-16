@@ -5,6 +5,7 @@
     "mana":20,
     "agility":15,
     "name":"Guerrier",
+	"sprite":"Mage",
     "xp":0,
     "attack": [
 	   "Normal",

@@ -5,6 +5,7 @@
     "mana":50,
     "agility":10,
     "name":"Mage",
+	"sprite":"Mage",
     "xp":0,
     "attack": [
 	   "Normal",

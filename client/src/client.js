@@ -17,14 +17,11 @@ window.onload = function() {
         initServerSocket();        
         choosePlayerName(function(){
             choosePlayerClass(function(){
-            
                 var data = {
                     playerName: playerName,
                     playerClass: playerClass
                 };
-                server.emit('login', data);
-            
-                //battle();
+                server.emit('login', data);            
             });
         });
     });
@@ -35,6 +32,17 @@ function initServerSocket() {
     
     server.on('loginAccepted', function(data) {
         player.serverData = data;
+        server.emit('startBattle');
+    });
+    
+    server.on('battleStarted', function(data) {
+        /*
+         * data structure expected from the server
+         * {
+         *     computerClass
+         * }
+         */
+        battle(data.computerClass);
     });
 }
 
@@ -64,27 +72,35 @@ function choosePlayerName(callback) {
     }
 };*/
 
-function battle() {
+function battle(computerClass) {
     var battle = new ArenaBattle();
     
-    Ressource.sound.battle.play(createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
+    //Ressource.sound.battle.play(createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
     
-    battle.team1.push(new Gypsy());
+    battle.team1.push(new Assassin());//battle.team1.push(new Gypsy());
     battle.team2.push(player);
     
     battle.render();
     
-    battle.showUserChoice(function(){
-        battle.attack(player, function(){
-            battle.attack(battle.team1[0]);
-        })
+    server.on('playerTurn', function() {
+        battle.showUserChoice(function(){
+            server.emit('playerChoose');
+        });
     });
-
-    //battle.attack(player);
     
-    //battle.showMessage('test');
+    server.on('playerChooseResult', function(data){
+        battle.attack(player, data.message, function(){
+            server.emit('playerTurnEnd');
+        });
+    });
     
-    //battle.showUserChoice();
+    server.on('computerChooseResult', function(data){
+        battle.attack(battle.team1[0], data.message, function(){
+            server.emit('computerTurnEnd');
+        });
+    });
+    
+    server.emit('battlefieldReady');
 }
 
 function choosePlayerClass(callback) {

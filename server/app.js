@@ -47,15 +47,35 @@ io.on('connection', function (socket) {
     });
 
     socket.on('startBattle', function (data) {
-        console.log('Battle started', data);
+        /*console.log('Battle started', data);
 		battle = launchBattle();
         // send the answer to the question to the client
-        socket.emit('initedBattle', { battle: battle});
+        socket.emit('initedBattle', { battle: battle});*/
+        
+        socket.battle = new Battle();
+        
+        socket.emit('battleStarted', { computerClass: 'Assassin' });
     });	
+    
+    socket.on('battlefieldReady', function() {
+        socket.emit('playerTurn');
+    });
+    
+    socket.on('playerChoose', function() {
+        socket.emit('playerChooseResult', { message: 'Votre attaque à réussi' });
+    });
+    
+    socket.on('playerTurnEnd', function(){
+        socket.emit('computerChooseResult', { message: 'Vous vous êtes fait toucher' });
+    });
+    
+    socket.on('computerTurnEnd', function(){
+        socket.emit('playerTurn');
+    });
     
     socket.on('login', function(data) {
         /* 
-         * data parameter structure expected
+         * data structure expected from client
          * {
          *     playerName,
          *     playerClass
@@ -112,3 +132,8 @@ function Assassin() {
 }
 Assassin.prototype = new Character();
 Assassin.prototype.constructor = Assassin;
+
+function Battle() {
+    this.computerCharacter = new Assassin();
+    this.isPlayerTurn = true;
+}

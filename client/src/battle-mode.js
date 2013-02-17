@@ -148,6 +148,7 @@ function Battle() {
             var currentX = character.sprite.getX();
             
             if (currentX == 400) {
+                Ressource.sound.sword.play();
                 back = true; 
                 if (startState == 'rightIdle') {
                     character.sprite.setAnimation('left');

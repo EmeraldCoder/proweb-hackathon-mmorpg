@@ -70,12 +70,27 @@ var RessourceLoader = function(){
     }
     
     var loadSounds = function(callback) {
-        createjs.Sound.addEventListener('loadComplete', createjs.proxy(loadHandler, this));
-        createjs.Sound.registerSound('http://magicolic.com/hackathon/loopFight.wav', 'battle');
-        function loadHandler(event) {
+        createjs.Sound.addEventListener('loadComplete', createjs.proxy(function(){
             Ressource.sound.battle = createjs.Sound.createInstance('battle');
-            callback();
-        }      
+            createjs.Sound.addEventListener('loadComplete', createjs.proxy(function(){
+                Ressource.sound.sword = createjs.Sound.createInstance('sword');
+                createjs.Sound.addEventListener('loadComplete', createjs.proxy(function(){
+                    Ressource.sound.loseBattle = createjs.Sound.createInstance('loseBattle');
+                    createjs.Sound.addEventListener('loadComplete', createjs.proxy(function(){
+                        Ressource.sound.winBattle = createjs.Sound.createInstance('winBattle');
+                        createjs.Sound.addEventListener('loadComplete', createjs.proxy(function(){
+                            Ressource.sound.intro = createjs.Sound.createInstance('intro');
+                            callback();
+                        }, this));
+                        createjs.Sound.registerSound('http://magicolic.com/hackathon/intro.wav', 'intro');              
+                    }, this));
+                    createjs.Sound.registerSound('http://magicolic.com/hackathon/winBattle.wav', 'winBattle');              
+                }, this));
+                createjs.Sound.registerSound('http://magicolic.com/hackathon/loseBattle.wav', 'loseBattle');              
+            }, this));
+            createjs.Sound.registerSound('http://magicolic.com/hackathon/guerrierSword.mp3', 'sword');              
+        }, this));
+        createjs.Sound.registerSound('http://magicolic.com/hackathon/loopFight.wav', 'battle');  
     }
 
     return {

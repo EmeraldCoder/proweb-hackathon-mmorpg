@@ -14,7 +14,10 @@ window.onload = function() {
     });
     
     RessourceLoader.load(function(){
+        Ressource.sound.intro.play(createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
+    
         initServerSocket();        
+        
         choosePlayerName(function(){
             choosePlayerClass(function(){
                 var data = {
@@ -79,7 +82,8 @@ function choosePlayerName(callback) {
 function battle(computerClass) {
     var battle = new ArenaBattle();
     
-    //Ressource.sound.battle.play(createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
+    Ressource.sound.intro.stop();
+    Ressource.sound.battle.play(createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
     
     battle.team1.push(new Assassin());//battle.team1.push(new Gypsy());
     battle.team2.push(player);
@@ -97,8 +101,10 @@ function battle(computerClass) {
             battle.showMessage(data.message, function(){
                 battle.renderStat();
                 if (data.win) {
+                    Ressource.sound.battle.stop();
+                    Ressource.sound.winBattle.play();
                     battle.showMessage('Vous avez gagné', function(){
-                        alert('Merci d\'avoir essayé notre jeux :)');
+                        alert('Merci d\'avoir essayé notre jeux !');
                     });
                 } else {
                     server.emit('playerTurnEnd');
@@ -112,8 +118,10 @@ function battle(computerClass) {
             battle.showMessage(data.message, function(){
                 battle.renderStat();
                 if (data.lose) {
+                    Ressource.sound.battle.stop();
+                    Ressource.sound.loseBattle.play();
                     battle.showMessage('Vous avez perdu', function(){
-                        alert('Merci d\'avoir essayé notre jeux :)');
+                        alert('Merci d\'avoir essayé notre jeux !');
                     });
                 } else {
                     server.emit('computerTurnEnd');

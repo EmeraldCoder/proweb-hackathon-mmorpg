@@ -89,14 +89,30 @@ function battle(computerClass) {
     });
     
     server.on('playerChooseResult', function(data){
-        battle.attack(player, data.message, function(){
-            server.emit('playerTurnEnd');
+        battle.attack(player, function(){        
+            battle.showMessage(data.message, function(){
+                if (data.win) {
+                    battle.showMessage('Vous avez gagné', function(){
+                        alert('Merci d\'avoir essayé notre jeux :)');
+                    });
+                } else {
+                    server.emit('playerTurnEnd');
+                }
+            });
         });
     });
     
     server.on('computerChooseResult', function(data){
-        battle.attack(battle.team1[0], data.message, function(){
-            server.emit('computerTurnEnd');
+        battle.attack(battle.team1[0], function(){
+            battle.showMessage(data.message, function(){
+                if (data.lose) {
+                    battle.showMessage('Vous avez perdu', function(){
+                        alert('Merci d\'avoir essayé notre jeux :)');
+                    });
+                } else {
+                    server.emit('computerTurnEnd');
+                }
+            });
         });
     });
     

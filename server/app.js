@@ -47,13 +47,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('startBattle', function (data) {
-        /*console.log('Battle started', data);
-		battle = launchBattle();
-        // send the answer to the question to the client
-        socket.emit('initedBattle', { battle: battle});*/
-        
-        socket.battle = new Battle();
-        
+        socket.battle = new Battle();        
         socket.emit('battleStarted', { computerClass: 'Assassin' });
     });	
     
@@ -62,11 +56,19 @@ io.on('connection', function (socket) {
     });
     
     socket.on('playerChoose', function() {
-        socket.emit('playerChooseResult', { message: 'Votre attaque à réussi' });
+        socket.character.attack(socket.battle.opponent);
+        
+        var playerWin = socket.battle.opponent.hp <= 0;
+        
+        socket.emit('playerChooseResult', { message: 'Votre attaque à réussi', win: playerWin });        
     });
     
     socket.on('playerTurnEnd', function(){
-        socket.emit('computerChooseResult', { message: 'Vous vous êtes fait toucher' });
+        socket.battle.opponent.attack(socket.character);
+        
+        var playerLose = socket.character.hp <= 0;
+        
+        socket.emit('computerChooseResult', { message: 'Vous vous êtes fait toucher', lose: playerLose });
     });
     
     socket.on('computerTurnEnd', function(){
@@ -120,13 +122,19 @@ function bonhomme(nom){
 function Character() {
     this.name = '';
     this.xp = 0;
+    
+    this.attack = function(opponent) {
+        opponent.hp = opponent.hp - this.power;
+    };
 }
 
 function Assassin() {
     Character.call(this);
     
     this.hp = 30;
+    this.maxHp = 30;
     this.mp = 25;
+    this.maxMp = 25;
     this.power = 15;
     this.defence = 10;
 }
@@ -134,6 +142,5 @@ Assassin.prototype = new Character();
 Assassin.prototype.constructor = Assassin;
 
 function Battle() {
-    this.computerCharacter = new Assassin();
-    this.isPlayerTurn = true;
+    this.opponent = new Assassin();
 }

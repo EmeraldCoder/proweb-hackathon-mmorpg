@@ -13,12 +13,11 @@ window.onload = function() {
     });
     
     RessourceLoader.load(function(){
-        initServerSocket();
-        
-        playerName = prompt('Player name');
-    
-        start(function(){
-            battle();
+        initServerSocket();        
+        choosePlayerName(function(){
+            choosePlayerClass(function(){
+                battle();
+            });
         });
     });
 };
@@ -30,6 +29,14 @@ function initServerSocket() {
     server.on('initedBattle', function(data) {
         console.log(data.battle);
     });
+}
+
+function choosePlayerName(callback) {
+    while (playerName == '' || playerName == null) {
+        playerName = prompt('Player name');
+        playerName = playerName.trim();
+    } 
+    callback();
 }
 
 /*window.onkeyup = function(e) {
@@ -73,7 +80,7 @@ function battle() {
     //battle.showUserChoice();
 }
 
-function start(callback) {
+function choosePlayerClass(callback) {
 
     var layer = new Kinetic.Layer();
     

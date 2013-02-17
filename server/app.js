@@ -52,6 +52,20 @@ io.on('connection', function (socket) {
         // send the answer to the question to the client
         socket.emit('initedBattle', { battle: battle});
     });	
+    
+    socket.on('login', function(data) {
+        /* 
+         * data parameter structure expected
+         * {
+         *     playerName,
+         *     playerClass
+         * }
+         */
+        socket.character = new Assassin();
+        socket.character.name = data.playerName;
+        
+        socket.emit('loginAccepted', socket.character);
+    });
 	
 });
 
@@ -82,3 +96,19 @@ function bonhomme(nom){
 	bon.nom = nom;
 	return bon;
 }
+
+function Character() {
+    this.name = '';
+    this.xp = 0;
+}
+
+function Assassin() {
+    Character.call(this);
+    
+    this.hp = 30;
+    this.mp = 25;
+    this.power = 15;
+    this.defence = 10;
+}
+Assassin.prototype = new Character();
+Assassin.prototype.constructor = Assassin;

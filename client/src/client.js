@@ -3,6 +3,7 @@ var server = null;
 
 var player = null;
 var playerName = null;
+var playerClass = null;
 
 window.onload = function() {    
     // init canvas stage
@@ -16,7 +17,14 @@ window.onload = function() {
         initServerSocket();        
         choosePlayerName(function(){
             choosePlayerClass(function(){
-                battle();
+            
+                var data = {
+                    playerName: playerName,
+                    playerClass: playerClass
+                };
+                server.emit('login', data);
+            
+                //battle();
             });
         });
     });
@@ -25,9 +33,8 @@ window.onload = function() {
 function initServerSocket() {
     server = io.connect();
     
-    server.emit('startBattle');
-    server.on('initedBattle', function(data) {
-        console.log(data.battle);
+    server.on('loginAccepted', function(data) {
+        player.serverData = data;
     });
 }
 
@@ -154,6 +161,7 @@ function choosePlayerClass(callback) {
             }
         } else if (e.keyCode == 13) {
             player = characters[selectIndex];
+            playerClass = 'assassin';
             window.onkeyup = null;
             if (callback != undefined) callback();
         }

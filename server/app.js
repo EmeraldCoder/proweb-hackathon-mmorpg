@@ -61,6 +61,7 @@ io.on('connection', function (socket) {
         var playerWin = socket.battle.opponent.hp <= 0;
         
         socket.emit('playerChooseResult', { message: 'Votre attaque à réussi', win: playerWin });        
+        socket.emit('playerStatChanged', socket.character);
     });
     
     socket.on('playerTurnEnd', function(){
@@ -69,6 +70,7 @@ io.on('connection', function (socket) {
         var playerLose = socket.character.hp <= 0;
         
         socket.emit('computerChooseResult', { message: 'Vous vous êtes fait toucher', lose: playerLose });
+        socket.emit('playerStatChanged', socket.character);
     });
     
     socket.on('computerTurnEnd', function(){

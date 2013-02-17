@@ -3,6 +3,7 @@ function Battle() {
     this.team2 = [];
     
     this.characterLayer = null;
+    this.statLayer = null;
 
     this.render = function(){
         
@@ -17,32 +18,10 @@ function Battle() {
             image: Ressource.background[this.background]
         });
         
-        bgLayer.add(bg);
-        
-        
-        var test2 = new Kinetic.Rect({
-            x: 500,
-            y: 22,
-            width: 280,
-            height: 50,
-            fill: 'green',
-            stroke: 'silver',
-            strokeWidth: 4,
-            opacity: 0.8,
-            cornerRadius: 10
-        });
-        bgLayer.add(test2);
-        var test = new Kinetic.Text({
-            x: 510,
-            y: 25,
-            text: playerName + '\r\nPoint de vie : 50 / 50\r\nMana : 50 / 50',
-            fontSize: 14,
-            fontFamily: 'arial',
-            fill: 'white'
-        });
-        bgLayer.add(test);
-        
+        bgLayer.add(bg);        
         stage.add(bgLayer);
+        
+        this.renderStat();
         
         characterLayer = new Kinetic.Layer();
         for (var i = 0; i < this.team1.length; i++) {
@@ -62,6 +41,35 @@ function Battle() {
             this.team2[i].sprite.start();
         }
         stage.add(characterLayer);
+    };
+    
+    this.renderStat = function() {
+        if (this.statLayer != null) this.statLayer.remove();
+        this.statLayer = new Kinetic.Layer();
+    
+        var test2 = new Kinetic.Rect({
+            x: 500,
+            y: 22,
+            width: 280,
+            height: 50,
+            fill: 'green',
+            stroke: 'silver',
+            strokeWidth: 4,
+            opacity: 0.8,
+            cornerRadius: 10
+        });
+        this.statLayer.add(test2);
+        var stat = new Kinetic.Text({
+            x: 510,
+            y: 25,
+            text: playerName + '\r\nPoint de vie : ' + player.serverData.hp + ' / ' + player.serverData.maxHp + '\r\nMana : ' + player.serverData.mp + ' / ' + player.serverData.maxMp,
+            fontSize: 14,
+            fontFamily: 'arial',
+            fill: 'white'
+        });
+        this.statLayer.add(stat);
+        
+        stage.add(this.statLayer);
     };
     
     this.showUserChoice = function(callback) {

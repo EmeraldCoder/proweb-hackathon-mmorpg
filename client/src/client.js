@@ -35,6 +35,10 @@ function initServerSocket() {
         server.emit('startBattle');
     });
     
+    server.on('playerStatChanged', function(data) {
+        player.serverData = data;
+    });
+    
     server.on('battleStarted', function(data) {
         /*
          * data structure expected from the server
@@ -91,6 +95,7 @@ function battle(computerClass) {
     server.on('playerChooseResult', function(data){
         battle.attack(player, function(){        
             battle.showMessage(data.message, function(){
+                battle.renderStat();
                 if (data.win) {
                     battle.showMessage('Vous avez gagné', function(){
                         alert('Merci d\'avoir essayé notre jeux :)');
@@ -105,6 +110,7 @@ function battle(computerClass) {
     server.on('computerChooseResult', function(data){
         battle.attack(battle.team1[0], function(){
             battle.showMessage(data.message, function(){
+                battle.renderStat();
                 if (data.lose) {
                     battle.showMessage('Vous avez perdu', function(){
                         alert('Merci d\'avoir essayé notre jeux :)');

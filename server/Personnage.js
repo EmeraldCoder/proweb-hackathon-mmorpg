@@ -6,7 +6,9 @@ function Player () {
 	this.defence = 0;
 	this.agility = 0;
 	this.xp = 0;
-    
+    this.getInfo = function() {
+        return this.color + ' ' + this.type + ' apple';
+    };
 }
 
 function Warrior(){

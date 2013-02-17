@@ -83,7 +83,7 @@ io.on('connection', function (socket) {
          *     playerClass
          * }
          */
-        socket.character = new Assassin();
+        socket.character = CharacterFactory(data.playerClass);
         socket.character.name = data.playerName;
         
         socket.emit('loginAccepted', socket.character);
@@ -119,6 +119,14 @@ function bonhomme(nom){
 	return bon;
 }
 
+function CharacterFactory(classname) {
+    classname = classname.toLowerCase();
+    if (classname == 'assassin') return new Assassin();
+    if (classname == 'fighter') return new Fighter();
+    if (classname == 'mage') return new Mage();
+    return null;
+}
+
 function Character() {
     this.name = '';
     this.xp = 0;
@@ -140,6 +148,32 @@ function Assassin() {
 }
 Assassin.prototype = new Character();
 Assassin.prototype.constructor = Assassin;
+
+function Fighter() {
+    Character.call(this);
+    
+    this.hp = 50;
+    this.maxHp = 50;
+    this.mp = 20;
+    this.maxMp = 20;
+    this.power = 15;
+    this.defence = 15;
+}
+Fighter.prototype = new Character();
+Fighter.prototype.constructor = Fighter;
+
+function Mage() {
+    Character.call(this);
+    
+    this.hp = 25;
+    this.maxHp = 25;
+    this.mp = 50;
+    this.maxMp = 50;
+    this.power = 20;
+    this.defence = 5;
+}
+Mage.prototype = new Character();
+Mage.prototype.constructor = Mage;
 
 function Battle() {
     this.opponent = new Assassin();

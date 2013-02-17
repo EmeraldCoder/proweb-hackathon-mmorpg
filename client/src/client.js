@@ -133,41 +133,49 @@ function choosePlayerClass(callback) {
     layer.add(rect);
     
     var characters = [];
+    var characterClassnames = [];
     
     var c1 = new Assassin();
-    c1.sprite.setX(0);
+    c1.sprite.setX(characters.length * 54);
     c1.sprite.setY(0);
     characters.push(c1);
+    characterClassnames.push('assassin');
     
-    var c2 = new Druid();
-    c2.sprite.setX(54);
+    /*var c2 = new Druid();
+    c2.sprite.setX(characters.length * 54);
     c2.sprite.setY(0);
     characters.push(c2);
+    characterClassnames.push('druid');*/
     
     var c3 = new Fighter();
-    c3.sprite.setX(54 * 2);
+    c3.sprite.setX(characters.length * 54);
     c3.sprite.setY(0);
     characters.push(c3);
+    characterClassnames.push('fighter');
     
-    var c4 = new Gypsy();
-    c4.sprite.setX(54 * 3);
+    /*var c4 = new Gypsy();
+    c4.sprite.setX(characters.length * 54);
     c4.sprite.setY(0);
     characters.push(c4);
+    characterClassnames.push('gypsy');*/
     
-    var c5 = new Healer();
-    c5.sprite.setX(54 * 4);
+    /*var c5 = new Healer();
+    c5.sprite.setX(characters.length * 54);
     c5.sprite.setY(0);
     characters.push(c5);
+    characterClassnames.push('healer');*/
     
     var c6 = new Mage();
-    c6.sprite.setX(54 * 5);
+    c6.sprite.setX(characters.length * 54);
     c6.sprite.setY(0);
     characters.push(c6);
+    characterClassnames.push('mage');
     
-    var c7 = new Panda();
-    c7.sprite.setX(54 * 6);
+    /*var c7 = new Panda();
+    c7.sprite.setX(characters.length * 54);
     c7.sprite.setY(0);
     characters.push(c7);
+    characterClassnames.push('panda');*/
     
     for (var i = 0; i < characters.length; i++) {
         layer.add(characters[i].sprite);
@@ -193,7 +201,7 @@ function choosePlayerClass(callback) {
             }
         } else if (e.keyCode == 13) {
             player = characters[selectIndex];
-            playerClass = 'assassin';
+            playerClass = characterClassnames[selectIndex];
             window.onkeyup = null;
             if (callback != undefined) callback();
         }

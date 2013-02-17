@@ -9,8 +9,8 @@ var app = require('http').createServer(httpHandler),
 /*
  * Start our server
  */
-app.listen(8080);
-console.log('Server started on 127.0.0.1:8080');
+app.listen(8088);
+//console.log('Server started on 127.0.0.1:80');
 
 /*
  * Http server stuff

@@ -1,6 +1,7 @@
 var Ressource = {
     charaset: {},
-    background: {}
+    background: {},
+    sound: {}
 };
 
 var RessourceLoader = function(){
@@ -8,7 +9,9 @@ var RessourceLoader = function(){
     var load = function(callback){
         loadCharasets(function() {
             loadBackgrounds(function(){
-                callback();
+                loadSounds(function(){
+                    callback();
+                });
             });
         });
     }
@@ -64,6 +67,15 @@ var RessourceLoader = function(){
             callback();
         };
         image.src = 'rsx/background/arena.jpg';
+    }
+    
+    var loadSounds = function(callback) {
+        createjs.Sound.addEventListener('loadComplete', createjs.proxy(loadHandler, this));
+        createjs.Sound.registerSound('rsx/sound/loopFight.wav', 'battle');
+        function loadHandler(event) {
+            Ressource.sound.battle = createjs.Sound.createInstance('battle');
+            callback();
+        }      
     }
 
     return {

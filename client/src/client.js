@@ -41,6 +41,8 @@ window.onload = function() {
 function battle() {
     var battle = new ArenaBattle();
     
+    Ressource.sound.battle.play(createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
+    
     battle.team1.push(new Gypsy());
     battle.team2.push(player);
     

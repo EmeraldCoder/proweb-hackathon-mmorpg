@@ -17,10 +17,17 @@ console.log('Server started on 127.0.0.1:8080');
  * send our html5 client to the browser
  */
 function httpHandler (req, res) {
-    fs.readFile(__dirname + '/../client/index.html', function(err, data) {
+    var filename = '';
+    if (req.url == '/') {
+        filename = __dirname + '/../client/index.html';
+    } else {
+        filename = __dirname + '/../client' + req.url;
+    }
+    
+    fs.readFile(filename, function(err, data) {
         if (err) {
             res.writeHead(500);
-            return res.end('Error loading index.html');
+            return res.end('Error loading ' + req.url);
         }
         
         res.writeHead(200);

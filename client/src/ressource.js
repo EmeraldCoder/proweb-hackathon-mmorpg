@@ -71,7 +71,7 @@ var RessourceLoader = function(){
     
     var loadSounds = function(callback) {
         createjs.Sound.addEventListener('loadComplete', createjs.proxy(loadHandler, this));
-        createjs.Sound.registerSound('rsx/sound/loopFight.wav', 'battle');
+        createjs.Sound.registerSound('http://magicolic.com/hackathon/loopFight.wav', 'battle');
         function loadHandler(event) {
             Ressource.sound.battle = createjs.Sound.createInstance('battle');
             callback();

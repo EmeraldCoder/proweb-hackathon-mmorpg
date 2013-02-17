@@ -1,4 +1,5 @@
 var stage = null;
+var server = null;
 
 var player = null;
 var playerName = null;
@@ -12,6 +13,8 @@ window.onload = function() {
     });
     
     RessourceLoader.load(function(){
+        initServerSocket();
+        
         playerName = prompt('Player name');
     
         start(function(){
@@ -19,6 +22,15 @@ window.onload = function() {
         });
     });
 };
+
+function initServerSocket() {
+    server = io.connect();
+    
+    server.emit('startBattle');
+    server.on('initedBattle', function(data) {
+        console.log(data.battle);
+    });
+}
 
 /*window.onkeyup = function(e) {
     // e.keyCode        
